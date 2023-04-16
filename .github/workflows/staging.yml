@@ -10,8 +10,8 @@ jobs:
 
     env:
       ACMEDNS_BASE_URL: "https://api.getlocalcert.net/api/v1/acme-dns-compat"
-      ACMEDNS_SUBDOMAIN: ${{ variables.ACMEDNS_SUBDOMAIN }}
-      ACMEDNS_FULLDOMAIN: ${{ variables.ACMEDNS_FULLDOMAIN }}
+      ACMEDNS_SUBDOMAIN: ${{ vars.ACMEDNS_SUBDOMAIN }}
+      ACMEDNS_FULLDOMAIN: ${{ vars.ACMEDNS_FULLDOMAIN }}
       ACMEDNS_USERNAME: ${{ secrets.ACMEDNS_USERNAME }}
       ACMEDNS_PASSWORD: ${{ secrets.ACMEDNS_PASSWORD }}
       ACMEDNS_EMAIL: ${{ secrets.ACMEDNS_EMAIL }}
