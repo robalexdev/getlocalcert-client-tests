@@ -20,5 +20,5 @@ jobs:
       - name: Install acme.sh
         run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
       - name: Issue certificate
-        run: ~/.acme.sh/acme.sh --issue --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
+        run: ~/.acme.sh/acme.sh --issue --log --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
 
