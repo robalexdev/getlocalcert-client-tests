@@ -22,5 +22,5 @@ jobs:
       - name: Issue certificate
         run: ~/.acme.sh/acme.sh --issue --log --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
       - name: Logs
-        if: failed()
+        if: failure()
         run: cat /home/runner/.acme.sh/acme.sh.log
