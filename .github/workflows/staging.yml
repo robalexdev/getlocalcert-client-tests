@@ -21,4 +21,6 @@ jobs:
         run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
       - name: Issue certificate
         run: ~/.acme.sh/acme.sh --issue --log --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
-
+      - name: Logs
+        if: failed()
+        run: cat /home/runner/.acme.sh/acme.sh.log
