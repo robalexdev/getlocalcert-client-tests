@@ -1,0 +1,23 @@
+name: Issue Cert Tests (staging)
+on:
+  push:
+  schedule:
+    - cron: "15 6 * * *"
+
+jobs:
+  issue:
+    runs-on: ubuntu-latest
+
+    env:
+      ACMEDNS_BASE_URL: "https://api.getlocalcert.net/api/v1/acme-dns-compat"
+      ACMEDNS_SUBDOMAIN: ${{ vars.ACMEDNS_SUBDOMAIN }}
+      ACMEDNS_FULLDOMAIN: ${{ vars.ACMEDNS_FULLDOMAIN }}
+      ACMEDNS_USERNAME: ${{ secrets.ACMEDNS_USERNAME }}
+      ACMEDNS_PASSWORD: ${{ secrets.ACMEDNS_PASSWORD }}
+      ACMEDNS_EMAIL: ${{ secrets.ACMEDNS_EMAIL }}
+
+    steps:
+      - name: Install acme.sh
+        run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
+      - name: Issue certificate
+        run: ~/.acme.sh/acme.sh --issue --debug --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
