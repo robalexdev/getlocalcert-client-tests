@@ -20,6 +20,6 @@ jobs:
       - name: Install acme.sh
         run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
       - name: debug
-        run: sha256sum ${ACMEDNS_PASSWORD}
+        run: echo ${ACMEDNS_PASSWORD} | sha256sum
       - name: Issue certificate
         run: ~/.acme.sh/acme.sh --issue --debug --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
