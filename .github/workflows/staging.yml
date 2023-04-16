@@ -1,7 +1,7 @@
 name: Issue Cert Tests (staging)
 on:
   schedule:
-    cron: "13 6 * * *"
+    - cron: "15 6 * * *"
 
 jobs:
   issue:
