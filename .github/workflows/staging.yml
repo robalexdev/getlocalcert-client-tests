@@ -10,8 +10,8 @@ jobs:
 
     env:
       ACMEDNS_BASE_URL: "https://api.getlocalcert.net/api/v1/acme-dns-compat"
-      ACMEDNS_SUBDOMAIN: "1"
-      ACMEDNS_FULLDOMAIN: "1.localhostcert.net"
+      ACMEDNS_SUBDOMAIN: ${{ variables.ACMEDNS_SUBDOMAIN }}
+      ACMEDNS_FULLDOMAIN: ${{ variables.ACMEDNS_FULLDOMAIN }}
       ACMEDNS_USERNAME: ${{ secrets.ACMEDNS_USERNAME }}
       ACMEDNS_PASSWORD: ${{ secrets.ACMEDNS_PASSWORD }}
       ACMEDNS_EMAIL: ${{ secrets.ACMEDNS_EMAIL }}
@@ -19,7 +19,5 @@ jobs:
     steps:
       - name: Install acme.sh
         run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
-      - name: debug
-        run: echo ${ACMEDNS_PASSWORD} | sha256sum
       - name: Issue certificate
         run: ~/.acme.sh/acme.sh --issue --debug --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
