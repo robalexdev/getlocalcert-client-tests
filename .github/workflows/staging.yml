@@ -32,12 +32,6 @@ jobs:
     steps:
       - name: Install acme.sh
         run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
-      - name: Get an instant subdomain
-        run: curl -X POST https://api.getlocalcert.net/api/v1/acme-dns-compat/register > /tmp/creds.json
-      - name: Issue certificate
-        run: ACMEDNS_SUBDOMAIN=$(jq -r .subdomain /tmp/creds.json) \
-             ACMEDNS_FULLDOMAIN=$(jq -r .fulldomain /tmp/creds.json) \
-             ACMEDNS_USERNAME=$(jq -r .username /tmp/creds.json) \
-             ACMEDNS_PASSWORD=$(jq -r .password /tmp/creds.json) \
-             ~/.acme.sh/acme.sh --issue --debug --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
+      - name: Register and Issue certificate
+        run: /bin/bash ./.github/workflows/register-and-issue.sh
 
