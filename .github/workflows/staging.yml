@@ -26,12 +26,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ACMEDNS_BASE_URL: "https://api.getlocalcert.net/api/v1/acme-dns-compat"
       ACMEDNS_EMAIL: ${{ secrets.ACMEDNS_EMAIL }}
 
     steps:
       - name: Install acme.sh
         run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
       - name: Register and Issue certificate
-        run: /bin/bash ./.github/workflows/register-and-issue.sh
+        run: ${GITHUB_WORKSPACE}/examples/acme.sh/register-and-issue.sh
 
