@@ -1,0 +1,20 @@
+name: Register and Issue using acme.sh
+on:
+  push:
+  schedule:
+    - cron: "20 6 * * *"
+
+jobs:
+  acmesh-register-and-issue:
+    runs-on: ubuntu-latest
+
+    env:
+      ACMEDNS_EMAIL: ${{ secrets.ACMEDNS_EMAIL }}
+
+    steps:
+      - name: Install acme.sh
+        run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL} --install --force
+      - uses: actions/checkout@v3
+      - name: Register and Issue certificate
+        run: ${GITHUB_WORKSPACE}/examples/acme.sh/register-and-issue.sh
+

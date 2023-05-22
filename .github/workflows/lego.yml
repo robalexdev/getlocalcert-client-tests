@@ -1,0 +1,22 @@
+name: Register and Issue using LEGO
+on:
+  push:
+  schedule:
+    - cron: "25 6 * * *"
+
+jobs:
+  lego-register-and-issue:
+    runs-on: ubuntu-latest
+
+    env:
+      ACMEDNS_EMAIL: ${{ secrets.ACMEDNS_EMAIL }}
+
+    steps:
+      - name: Install jq
+        run: apt update && apt install -y jq
+      - name: Install LEGO
+        run: go install github.com/go-acme/lego/v4/cmd/lego@latest
+      - uses: actions/checkout@v3
+      - name: Register and Issue certificate
+        run: ${GITHUB_WORKSPACE}/examples/lego/register-and-issue.sh
+
