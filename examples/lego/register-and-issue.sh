@@ -23,10 +23,12 @@ echo "}"                      >> /tmp/lego-creds.json
 jq . /tmp/lego-creds.json > /dev/null
 
 # Issue a certificate with LE (staging env)
+# Get both the subdomain and a wildcard
 lego \
   --accept-tos \
   --email ${ACMEDNS_EMAIL} \
   --dns acme-dns \
   --domains ${ACMEDNS_FULLDOMAIN} \
+  --domains *.${ACMEDNS_FULLDOMAIN} \
   --server https://acme-staging-v02.api.letsencrypt.org/directory \
   run
