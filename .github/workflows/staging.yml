@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Install acme.sh
-        run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
+        run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL} --install --force
       - name: Issue certificate
         run: ~/.acme.sh/acme.sh --issue --debug --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
 
@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Install acme.sh
-        run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
+        run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL} --install --force
       - uses: actions/checkout@v3
       - name: Register and Issue certificate
         run: ${GITHUB_WORKSPACE}/examples/acme.sh/register-and-issue.sh
