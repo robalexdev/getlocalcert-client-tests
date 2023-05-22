@@ -31,6 +31,7 @@ jobs:
     steps:
       - name: Install acme.sh
         run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL}
+      - uses: actions/checkout@v3
       - name: Register and Issue certificate
         run: ${GITHUB_WORKSPACE}/examples/acme.sh/register-and-issue.sh
 
