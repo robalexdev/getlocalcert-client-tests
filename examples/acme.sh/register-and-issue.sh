@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 export ACMEDNS_BASE_URL=https://api.getlocalcert.net/api/v1/acme-dns-compat
 
 # Register a fresh instant domain
