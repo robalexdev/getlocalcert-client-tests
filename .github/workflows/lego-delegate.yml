@@ -1,0 +1,24 @@
+name: Issue using delegate domain
+on:
+  push:
+  schedule:
+    - cron: "30 6 * * *"
+
+jobs:
+  lego-issue-using-delegate:
+    runs-on: ubuntu-latest
+
+    env:
+      ACMEDNS_EMAIL: ${{ secrets.ACMEDNS_EMAIL }}
+      ALEXSCI_JSON : ${{ secrets.ALEXSCI_JSON }}
+
+    steps:
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '>= 1.20'
+      - name: Install LEGO
+        run: go install github.com/go-acme/lego/v4/cmd/lego@latest
+      - uses: actions/checkout@v3
+      - name: Issue a certificate for a test domain using a delegate
+        run: ${GITHUB_WORKSPACE}/examples/lego-delegate-domain/issue-using-delegate.sh
+
