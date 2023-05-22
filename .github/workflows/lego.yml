@@ -12,8 +12,8 @@ jobs:
       ACMEDNS_EMAIL: ${{ secrets.ACMEDNS_EMAIL }}
 
     steps:
-      - name: Install jq
-        run: apt update && apt install -y jq
+      - name: Install jq if needed
+        run: jq -V || (apt update && apt install -y jq)
       - name: Install LEGO
         run: go install github.com/go-acme/lego/v4/cmd/lego@latest
       - uses: actions/checkout@v3

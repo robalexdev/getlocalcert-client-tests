@@ -15,7 +15,10 @@ This helps detect incompatibility between the ACME clients and the getlocalcert 
 
 The tests can be run locally using [act](https://github.com/nektos/act).
 
-    act -l
-    act -s ACMEDNS_EMAIL=you@example.com -j register-and-issue
+    ./act -l
+    ./act -s ACMEDNS_EMAIL=you@example.com -j register-and-issue
 
+Sometimes we need to customize the container:
+
+    ./act -s ACMEDNS_EMAIL=you@example.com -j lego-register-and-issue -P ubuntu-latest=golang:latest
 
