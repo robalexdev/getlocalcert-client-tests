@@ -14,12 +14,12 @@ jobs:
     steps:
       - name: Install jq if needed
         run: jq -V || (apt update && apt install -y jq)
-      - uses: actions/checkout@v3
       - uses: actions/setup-go@v4
         with:
           go-version: '>= 1.20'
       - name: Install LEGO
-        run: go install github.com/go-acme/lego/v4/cmd/lego@latest && which lego && lego
+        run: go install github.com/go-acme/lego/v4/cmd/lego@latest
+      - uses: actions/checkout@v3
       - name: Register and Issue certificate
         run: ${GITHUB_WORKSPACE}/examples/lego/register-and-issue.sh
 
