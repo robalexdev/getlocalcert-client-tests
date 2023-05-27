@@ -16,7 +16,7 @@ export ACME_DNS_STORAGE_PATH=/tmp/lego-creds.json
 echo "${ALEXSCI_JSON}" > ${ACME_DNS_STORAGE_PATH}
 
 # Get a certificate and wildcard certificate for the domain
-lego \
+./lego \
   --accept-tos \
   --email ${ACMEDNS_EMAIL} \
   --dns acme-dns \
