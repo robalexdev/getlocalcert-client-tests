@@ -25,7 +25,7 @@ jq . /tmp/lego-creds.json > /dev/null
 
 # Issue a certificate with LE (staging env)
 # Get both the subdomain and a wildcard
-lego \
+./lego \
   --accept-tos \
   --email ${ACMEDNS_EMAIL} \
   --dns acme-dns \
