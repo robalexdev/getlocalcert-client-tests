@@ -2,10 +2,11 @@
 
 set -e
 
-export ACMEDNS_BASE_URL=https://api.getlocalcert.net/api/v1/acme-dns-compat
+export LOCALCERT_API=https://api.getlocalcert.net/api/v1
+export ACMEDNS_BASE_URL=${LOCALCERT_API}/acme-dns-compat
 
 # Register a fresh instant domain
-curl -X POST ${ACMEDNS_BASE_URL}/register > /tmp/creds.json
+curl -X POST ${LOCALCERT_API}/register > /tmp/creds.json
 
 # Issue a certificate with LE (staging env)
 export ACMEDNS_SUBDOMAIN=$(jq -r .subdomain /tmp/creds.json)

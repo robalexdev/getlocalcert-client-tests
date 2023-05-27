@@ -2,11 +2,12 @@
 
 set -e
 
-export ACME_DNS_API_BASE="https://api.getlocalcert.net/api/v1/acme-dns-compat"
+export LOCALCERT_API=https://api.getlocalcert.net/api/v1
+export ACME_DNS_API_BASE=${LOCALCERT_API}/acme-dns-compat
 export ACME_DNS_STORAGE_PATH=/tmp/lego-creds.json
 
 # Register a fresh instant domain
-curl -X POST ${ACME_DNS_API_BASE}/register > /tmp/creds.json
+curl -X POST ${LOCALCERT_API}/register > /tmp/creds.json
 export ACMEDNS_FULLDOMAIN=$(jq -r .fulldomain /tmp/creds.json)
 echo "GOT ${ACMEDNS_FULLDOMAIN}"
 
