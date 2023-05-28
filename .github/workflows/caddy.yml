@@ -1,0 +1,23 @@
+name: Register and Issue using Caddy
+on:
+  push:
+  schedule:
+    - cron: "30 6 * * *"
+
+jobs:
+  caddy-register-and-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install jq if needed
+        run: jq -V || (apt update && apt install -y jq)
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '>= 1.20'
+          cache-dependency-path: scripts/go.sum
+      - name: Install Caddy
+        run: ${GITHUB_WORKSPACE}/scripts/install-caddy.sh
+      - name: Register and Issue certificate
+        run: ${GITHUB_WORKSPACE}/examples/caddy/test.sh
+
