@@ -4,6 +4,7 @@ set -e
 
 # Run the example
 SCRIPT_PATH=$(dirname "$0")
+cp ./caddy ${SCRIPT_PATH}
 cd ${SCRIPT_PATH}
 ./register-and-issue.sh
 
