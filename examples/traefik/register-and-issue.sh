@@ -12,7 +12,7 @@ export ACMEDNS_FULLDOMAIN=$(jq -r keys[0] creds.json)
 echo "Got ${ACMEDNS_FULLDOMAIN}"
 
 # Patch the docker compose config to reference the domain
-sed -i "s/YOUR_FQDN_HERE/${ACMEDNS_FULLDOMAIN}/" docker-compose.yml
+sed "s/YOUR_FQDN_HERE/${ACMEDNS_FULLDOMAIN}/" docker-compose.yml.template > docker-compose.yml
 
 # Start traefik, routing the new domain to a basic HTTP service
 # traefik will automate issuance of a Let's Encrypt (staging) certificate

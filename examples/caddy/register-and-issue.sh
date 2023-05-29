@@ -9,7 +9,7 @@ fi
 
 # Patch the Caddyfile to use the new subdomain
 export ACMEDNS_FULLDOMAIN=$(jq -r .fulldomain creds.json)
-sed -i "s/YOUR_FQDN_HERE/${ACMEDNS_FULLDOMAIN}/" Caddyfile
+sed "s/YOUR_FQDN_HERE/${ACMEDNS_FULLDOMAIN}/" CaddyfileTemplate > Caddyfile
 
 # Caddy will issue a certificate as it runs
 sudo ./caddy run &
