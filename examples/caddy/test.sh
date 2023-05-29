@@ -4,7 +4,8 @@ set -e
 
 # Run the example
 SCRIPT_PATH=$(dirname "$0")
-$SCRIPT_PATH/register-and-issue.sh
+cd ${SCRIPT_PATH}
+./register-and-issue.sh
 
 # Use the Let's Encrypt staging certificates for validation
 # You should never do this outside testing as you should use LE's production
