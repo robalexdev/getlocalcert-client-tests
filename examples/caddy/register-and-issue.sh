@@ -7,18 +7,9 @@ if [ ! -f creds.json ]; then
   curl -X POST https://api.getlocalcert.net/api/v1/register > creds.json
 fi
 
-# Build a Caddyfile that will use these new credentials
-# to perform certificate issuance via ACME DNS-01
+# Patch the Caddyfile to use the new subdomain
 export ACMEDNS_FULLDOMAIN=$(jq -r .fulldomain creds.json)
-cat > Caddyfile << EOF
-${ACMEDNS_FULLDOMAIN} {
-  tls {
-    ca https://acme-staging-v02.api.letsencrypt.org/directory
-    dns acmedns creds.json
-  }
-  respond "Hello from Caddy"
-}
-EOF
+sed -i "s/YOUR_FQDN_HERE/${ACMEDNS_FULLDOMAIN}/" Caddyfile
 
 # Caddy will issue a certificate as it runs
 sudo ./caddy run &
