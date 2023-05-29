@@ -2,7 +2,7 @@
 
 set -e
 
-# Register a fresh instant subdomain (if needed)
+# Register a fresh instant subdomain (when needed)
 if [ ! -f creds.json ]; then
   curl -X POST https://api.getlocalcert.net/api/v1/register > creds.json
 fi

@@ -4,7 +4,7 @@ set -e
 
 export LOCALCERT_API=https://api.getlocalcert.net/api/v1
 export ACME_DNS_API_BASE=${LOCALCERT_API}/acme-dns-compat
-export ACME_DNS_STORAGE_PATH=/tmp/lego-creds.json
+export ACME_DNS_STORAGE_PATH=lego-creds.json
 
 # Register a fresh instant domain (when needed)
 if [ ! -f ${ACME_DNS_STORAGE_PATH} ]; then
@@ -23,3 +23,4 @@ echo "Got ${ACMEDNS_FULLDOMAIN}"
   --domains *.${ACMEDNS_FULLDOMAIN} \
   --server https://acme-staging-v02.api.letsencrypt.org/directory \
   run
+
