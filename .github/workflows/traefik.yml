@@ -1,0 +1,17 @@
+name: Register and Issue using Traefik
+on:
+  push:
+  schedule:
+    - cron: "40 6 * * *"
+
+jobs:
+  traefik-register-and-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install jq if needed
+        run: jq -V || (apt update && apt install -y jq)
+      - uses: actions/checkout@v3
+      - name: Register and Issue certificate
+        run: ${GITHUB_WORKSPACE}/examples/traefik/test.sh
+
