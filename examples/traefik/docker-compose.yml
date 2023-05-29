@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  # Traefik will proxy access to whoami and automate certificate management
+  reverse-proxy:
+    image: traefik:v2.10
+    ports:
+      - "443:443"
+    environment:
+      - ACME_DNS_API_BASE=https://api.getlocalcert.net/api/v1/acme-dns-compat
+      - ACME_DNS_STORAGE_PATH=/creds.json
+    volumes:
+      - ./traefik.yml:/etc/traefik/traefik.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./creds.json:/creds.json
+      - ./letsencrypt:/letsencrypt
+
+  # A basic upstream HTTP service
+  whoami:
+    image: traefik/whoami
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`YOUR_FQDN_HERE`)"
+      - "traefik.http.routers.whoami.service=whoami"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=myresolver"
+      - "traefik.http.services.whoami.loadbalancer.server.port=80"

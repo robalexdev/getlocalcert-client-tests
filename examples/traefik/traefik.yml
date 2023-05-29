@@ -1,0 +1,16 @@
+entryPoints:
+  websecure:
+    address: ":443"
+certificatesResolvers:
+  myresolver:
+    acme:
+      caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+      storage: /letsencrypt/acme.json
+      dnsChallenge:
+        provider: acme-dns
+        delayBeforeCheck: 0
+providers:
+  docker:
+    exposedByDefault: false
+log:
+  level: DEBUG

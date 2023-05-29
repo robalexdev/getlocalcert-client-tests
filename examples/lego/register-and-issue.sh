@@ -6,25 +6,15 @@ export LOCALCERT_API=https://api.getlocalcert.net/api/v1
 export ACME_DNS_API_BASE=${LOCALCERT_API}/acme-dns-compat
 export ACME_DNS_STORAGE_PATH=/tmp/lego-creds.json
 
-# Register a fresh instant domain
-curl -X POST ${LOCALCERT_API}/register > /tmp/creds.json
-export ACMEDNS_FULLDOMAIN=$(jq -r .fulldomain /tmp/creds.json)
-echo "GOT ${ACMEDNS_FULLDOMAIN}"
-
-# LEGO maps the FQDN to the verification domain
-# We're going to use the FQDN as the verification domain
-# Update the JSON
-echo -n '{"'                  >  /tmp/lego-creds.json
-echo -n ${ACMEDNS_FULLDOMAIN} >> /tmp/lego-creds.json
-echo -n '":'                  >> /tmp/lego-creds.json
-cat /tmp/creds.json           >> /tmp/lego-creds.json
-echo "}"                      >> /tmp/lego-creds.json
-
-# Validate the JSON
-jq . /tmp/lego-creds.json > /dev/null
+# Register a fresh instant domain (when needed)
+if [ ! -f ${ACME_DNS_STORAGE_PATH} ]; then
+  curl -X POST -F output_format=lego ${LOCALCERT_API}/register > ${ACME_DNS_STORAGE_PATH}
+fi
+export ACMEDNS_FULLDOMAIN=$(jq -r keys[0] ${ACME_DNS_STORAGE_PATH})
+echo "Got ${ACMEDNS_FULLDOMAIN}"
 
 # Issue a certificate with LE (staging env)
-# Get both the subdomain and a wildcard
+# Get both the subdomain and a wildcard for the new subdomain
 ./lego \
   --accept-tos \
   --email ${ACMEDNS_EMAIL} \
