@@ -11,9 +11,6 @@ curl -X POST -F output_format=lego ${LOCALCERT_API}/register > ${ACME_DNS_STORAG
 export ACMEDNS_FULLDOMAIN=$(jq -r keys[0] ${ACME_DNS_STORAGE_PATH})
 echo "Got ${ACMEDNS_FULLDOMAIN}"
 
-# Validate the JSON
-jq . ${ACME_DNS_STORAGE_PATH} > /dev/null
-
 # Issue a certificate with LE (staging env)
 # Get both the subdomain and a wildcard for the new subdomain
 ./lego \
