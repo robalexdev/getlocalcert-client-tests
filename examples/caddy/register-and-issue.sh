@@ -2,12 +2,9 @@
 
 set -e
 
-export LOCALCERT_API=https://api.getlocalcert.net/api/v1
-export ACMEDNS_BASE_URL=${LOCALCERT_API}/acme-dns-compat
-
 # Register a fresh instant subdomain (if needed)
 if [ ! -f creds.json ]; then
-  curl -X POST ${LOCALCERT_API}/register > creds.json
+  curl -X POST https://api.getlocalcert.net/api/v1/register > creds.json
 fi
 
 # Build a Caddyfile that will use these new credentials
