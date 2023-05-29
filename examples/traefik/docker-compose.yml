@@ -14,8 +14,7 @@ services:
       - ./traefik.yml:/etc/traefik/traefik.yml
       - /var/run/docker.sock:/var/run/docker.sock
       - ./creds.json:/creds.json
-        #- ./letsencrypt:/letsencrypt
-        #- ./acme-storage:/etc/traefik/acme
+      - ./letsencrypt:/letsencrypt
 
   # A basic upstream HTTP service
   whoami:

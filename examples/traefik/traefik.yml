@@ -5,7 +5,7 @@ certificatesResolvers:
   myresolver:
     acme:
       caServer: https://acme-staging-v02.api.letsencrypt.org/directory
-      storage: acme.json
+      storage: /letsencrypt/acme.json
       dnsChallenge:
         provider: acme-dns
         delayBeforeCheck: 0
