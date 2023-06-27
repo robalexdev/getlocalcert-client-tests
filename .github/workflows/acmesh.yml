@@ -2,7 +2,7 @@ name: Register and Issue using acme.sh
 on:
   push:
   schedule:
-    - cron: "20 6 * * *"
+    - cron: "20 6 /3 * *"
 
 jobs:
   acmesh-register-and-issue:
