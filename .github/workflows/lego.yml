@@ -1,8 +1,4 @@
 name: Register and Issue using LEGO
-on:
-  push:
-  schedule:
-    - cron: "25 6 * * *"
 
 jobs:
   lego-register-and-issue:

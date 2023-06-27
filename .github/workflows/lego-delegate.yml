@@ -1,8 +1,8 @@
 name: Issue using delegate domain
-on:
-  push:
-  schedule:
-    - cron: "30 6 * * *"
+  #on:
+  #push:
+  #schedule:
+  #  - cron: "30 6 * * *"
 
 jobs:
   lego-issue-using-delegate:

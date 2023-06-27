@@ -1,8 +1,8 @@
 name: Register and Issue using Caddy
-on:
-  push:
-  schedule:
-    - cron: "35 6 * * *"
+  #on:
+  #push:
+  #schedule:
+  #  - cron: "35 6 * * *"
 
 jobs:
   caddy-register-and-issue:

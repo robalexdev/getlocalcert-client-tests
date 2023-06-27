@@ -2,6 +2,22 @@
 
 set -e
 
+acme_sh_extra_flags=""
+
+while [ ${#} -gt 0 ]; do
+  case "${1}" in
+  --staging)
+    acme_sh_extra_flags+=" --staging "
+    ;;
+  *)
+    echo "Unknown parameter : $1"
+    exit 1
+    ;;
+  esac
+  shift 1
+done
+
+
 export LOCALCERT_API=https://api.getlocalcert.net/api/v1
 export ACMEDNS_BASE_URL=${LOCALCERT_API}/acme-dns-compat
 
@@ -14,9 +30,8 @@ export ACMEDNS_FULLDOMAIN=$(jq -r .fulldomain /tmp/creds.json)
 export ACMEDNS_USERNAME=$(jq -r .username /tmp/creds.json)
 export ACMEDNS_PASSWORD=$(jq -r .password /tmp/creds.json)
 
-~/.acme.sh/acme.sh --issue --dnssleep 1 --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
+~/.acme.sh/acme.sh --issue --dnssleep 1 --dns dns_acmedns --force -d ${ACMEDNS_FULLDOMAIN} ${acme_sh_extra_flags}
 
-# Clear the certs and try prod if that works
-~/.acme.sh/acme.sh --remove -d ${ACMEDNS_FULLDOMAIN} --staging
-~/.acme.sh/acme.sh --issue --dnssleep 1 --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN}
+# Cleanup for repeated runs
+~/.acme.sh/acme.sh --remove -d ${ACMEDNS_FULLDOMAIN} ${acme_sh_extra_flags}
 
