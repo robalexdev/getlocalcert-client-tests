@@ -22,5 +22,9 @@ export ACMEDNS_PASSWORD=$(jq -r .password creds.json)
 # Cleanup
 ~/.acme.sh/acme.sh --remove -d ${ACMEDNS_FULLDOMAIN} --staging
 
-# Try prod if staging worked (force Let's Encrypt)
-~/.acme.sh/acme.sh --issue --dnssleep 1 --dns dns_acmedns --force -d ${ACMEDNS_FULLDOMAIN} --server letsencrypt
+if [[ $1 == "prod" ]]; then
+  # Try prod if staging worked (force Let's Encrypt)
+  # Only do this on a cron schedule, so we don't consume too much of the rate limit
+  ~/.acme.sh/acme.sh --issue --dnssleep 1 --dns dns_acmedns --force -d ${ACMEDNS_FULLDOMAIN} --server letsencrypt
+fi
+

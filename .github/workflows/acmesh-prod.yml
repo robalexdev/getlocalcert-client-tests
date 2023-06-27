@@ -1,8 +1,7 @@
-name: Register and Issue using acme.sh
+name: Register and Issue Production cert using acme.sh
 on:
-  push:
   schedule:
-    - cron: "20 6 * * *"
+    - cron: "45 6 /3 * *"
 
 jobs:
   acmesh-register-and-issue:
@@ -16,5 +15,5 @@ jobs:
         run: curl https://get.acme.sh | sh -s email=${ACMEDNS_EMAIL} --install --force
       - uses: actions/checkout@v3
       - name: Register and Issue certificate (staging then prod)
-        run: ${GITHUB_WORKSPACE}/examples/acme.sh/register-and-issue.sh
+        run: ${GITHUB_WORKSPACE}/examples/acme.sh/register-and-issue.sh prod
 
