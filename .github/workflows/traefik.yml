@@ -1,4 +1,8 @@
 name: Register and Issue using Traefik
+on:
+  push:
+  schedule:
+    - cron: "40 6 * * *"
 
 jobs:
   traefik-register-and-issue:
