@@ -10,7 +10,7 @@ set -e
 # dig TXT _acme-challenge.test-acme-delegate.alexsci.com
 
 export ACME_DNS_API_BASE="https://api.getlocalcert.net/api/v1/acme-dns-compat"
-export ACME_DNS_STORAGE_PATH=/tmp/lego-creds.json
+export ACME_DNS_STORAGE_PATH=creds.json
 
 # Get the creds from GitHub secrets
 echo "${ALEXSCI_JSON}" > ${ACME_DNS_STORAGE_PATH}

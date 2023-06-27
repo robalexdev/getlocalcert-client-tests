@@ -5,14 +5,16 @@ set -e
 export LOCALCERT_API=https://api.getlocalcert.net/api/v1
 export ACMEDNS_BASE_URL=${LOCALCERT_API}/acme-dns-compat
 
-# Register a fresh instant domain
-curl -X POST ${LOCALCERT_API}/register > /tmp/creds.json
+# Register a fresh instant domain (when needed)
+if [ ! -s creds.json ]; then
+  curl -X POST ${LOCALCERT_API}/register > creds.json
+fi
 
 # Issue a certificate
-export ACMEDNS_SUBDOMAIN=$(jq -r .subdomain /tmp/creds.json)
-export ACMEDNS_FULLDOMAIN=$(jq -r .fulldomain /tmp/creds.json)
-export ACMEDNS_USERNAME=$(jq -r .username /tmp/creds.json)
-export ACMEDNS_PASSWORD=$(jq -r .password /tmp/creds.json)
+export ACMEDNS_SUBDOMAIN=$(jq -r .subdomain creds.json)
+export ACMEDNS_FULLDOMAIN=$(jq -r .fulldomain creds.json)
+export ACMEDNS_USERNAME=$(jq -r .username creds.json)
+export ACMEDNS_PASSWORD=$(jq -r .password creds.json)
 
 # First staging environment
 ~/.acme.sh/acme.sh --issue --dnssleep 1 --dns dns_acmedns --force -d ${ACMEDNS_FULLDOMAIN} --staging
@@ -22,4 +24,3 @@ export ACMEDNS_PASSWORD=$(jq -r .password /tmp/creds.json)
 
 # Try prod if staging worked
 ~/.acme.sh/acme.sh --issue --dnssleep 1 --dns dns_acmedns --force -d ${ACMEDNS_FULLDOMAIN}
-

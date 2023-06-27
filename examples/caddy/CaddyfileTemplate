@@ -1,0 +1,8 @@
+YOUR_FQDN_HERE {
+  tls {
+    ca https://acme-staging-v02.api.letsencrypt.org/directory
+    dns acmedns creds.json
+  }
+  respond "Hello from Caddy"
+}
+
