@@ -14,8 +14,9 @@ export ACMEDNS_FULLDOMAIN=$(jq -r .fulldomain /tmp/creds.json)
 export ACMEDNS_USERNAME=$(jq -r .username /tmp/creds.json)
 export ACMEDNS_PASSWORD=$(jq -r .password /tmp/creds.json)
 
-~/.acme.sh/acme.sh --issue --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
+~/.acme.sh/acme.sh --issue --dnssleep=1 --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN} --staging
 
-# Only try prod if staging worked
-~/.acme.sh/acme.sh --issue --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN}
+# Clear the certs and try prod if that works
+~/.acme.sh/acme.sh --remove -d ${ACMEDNS_FULLDOMAIN}
+~/.acme.sh/acme.sh --issue --dnssleep=1 --dns dns_acmedns -d ${ACMEDNS_FULLDOMAIN}
 
