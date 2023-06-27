@@ -1,7 +1,7 @@
 name: Register and Issue Production cert using acme.sh
 on:
   schedule:
-    - cron: "45 6 0/3 * *"
+    - cron: "45 6 1/7 * *"
 
 jobs:
   acmesh-register-and-issue:
