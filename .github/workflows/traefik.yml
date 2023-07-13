@@ -1,6 +1,6 @@
 name: Register and Issue using Traefik
 on:
-  push:
+  #push:
   schedule:
     - cron: "40 6 * * *"
 

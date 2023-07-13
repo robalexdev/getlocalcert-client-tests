@@ -1,6 +1,6 @@
 name: Issue using delegate domain
 on:
-  push:
+  #push:
   schedule:
     - cron: "30 6 * * *"
 

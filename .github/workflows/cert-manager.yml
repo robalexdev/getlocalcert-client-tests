@@ -1,6 +1,6 @@
 name: Register and Issue using cert-manager
 on:
-  push:
+  #push:
   schedule:
     - cron: "50 6 * * *"
 
@@ -26,9 +26,6 @@ jobs:
           config: ct.yaml
 
       - uses: helm/kind-action@v1.7.0
-      - name: Install the chart
-        run: ct install
-        config: ct.yaml
 
       - name: Run chart-testing (install)
         uses: helm/chart-testing-action@v1.0.0

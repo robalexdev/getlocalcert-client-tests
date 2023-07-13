@@ -1,6 +1,6 @@
 name: Issue cert for an existing domain
 on:
-  push:
+  #push:
   schedule:
     - cron: "15 6 * * *"
 
