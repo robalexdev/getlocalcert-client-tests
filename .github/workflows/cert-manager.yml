@@ -1,6 +1,6 @@
 name: Register and Issue using cert-manager
 on:
-  #push:
+  push:
   schedule:
     - cron: "50 6 * * *"
 
