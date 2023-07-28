@@ -1,6 +1,6 @@
 name: Register and Issue using acme.sh
 on:
-  #push:
+  push:
   schedule:
     - cron: "20 6 * * *"
 

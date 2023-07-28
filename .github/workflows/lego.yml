@@ -1,6 +1,6 @@
 name: Register and Issue using LEGO
 on:
-  #push:
+  push:
   schedule:
     - cron: "25 6 * * *"
 

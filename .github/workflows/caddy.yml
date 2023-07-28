@@ -1,6 +1,6 @@
 name: Register and Issue using Caddy
 on:
-  #push:
+  push:
   schedule:
     - cron: "35 6 * * *"
 
