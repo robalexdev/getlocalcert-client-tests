@@ -28,6 +28,12 @@ You can use the example code as a quick start for your own projects. For more de
 
 [Sample code](/examples/traefik/)
 
+### cert-manager
+
+[![Register and Issue using cert-manager](https://github.com/robalexdev/getlocalcert-client-tests/actions/workflows/cert-manager.yml/badge.svg)](https://github.com/robalexdev/getlocalcert-client-tests/actions/workflows/cert-manager.yml)
+
+[Sample code](/examples/cert-manager)
+
 ### acme.sh
 
 [![Register and Issue using acme.sh](https://github.com/robalexdev/getlocalcert-client-tests/actions/workflows/acmesh.yml/badge.svg)](https://github.com/robalexdev/getlocalcert-client-tests/actions/workflows/acmesh.yml)
