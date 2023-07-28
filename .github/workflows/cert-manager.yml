@@ -1,0 +1,34 @@
+name: Register and Issue using cert-manager
+on:
+  push:
+  schedule:
+    - cron: "50 6 * * *"
+
+jobs:
+  cert-manager-register-and-issue:
+    runs-on: ubuntu-latest
+
+    env:
+      ACMEDNS_FILE: ${{ secrets.CERT_MANAGER_ACMEDNS_FILE }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # Install kind: k8s in docker
+      - run: curl -Lo ./kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64
+      - run: chmod +x ./kind
+      - run: mv ./kind /usr/local/bin/kind
+
+      # Install kubectl
+      - run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      - run: chmod +x ./kubectl
+      - run: mv ./kubectl /usr/local/bin/kubectl
+      
+      # Create creds file from secrets
+      - run: echo -n "${ACMEDNS_FILE}" > examples/cert-manager/acmedns.json
+
+      # Try to get a certificate
+      - run: cd examples/cert-manager/ && ./install.sh
+
