@@ -8,28 +8,26 @@ jobs:
   cert-manager-register-and-issue:
     runs-on: ubuntu-latest
 
+    env:
+      ACMEDNS_FILE: ${{ secrets.CERT_MANAGER_ACMEDNS_FILE }}
+
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # Install things
-      - uses: azure/setup-helm@v3
-      - uses: actions/setup-python@v4
-      - uses: helm/chart-testing-action@v2
+      # Install kind: k8s in docker
+      - run: curl -Lo ./kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64
+      - run: chmod +x ./kind
+      - run: mv ./kind /usr/local/bin/kind
 
-      - name: Run chart-testing (lint)
-        id: lint
-        uses: helm/chart-testing-action@v1.0.0
-        with:
-          command: lint
-          config: ct.yaml
+      # Install kubectl
+      - run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      - run: install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      
+      # Create creds file from secrets
+      - run: echo -n "${ACMEDNS_FILE}" > examples/cert-manager/acmedns.json
 
-      - uses: helm/kind-action@v1.7.0
-
-      - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@v1.0.0
-        with:
-          command: install
-          config: ct.yaml
+      # Try to get a certificate
+      - run: cd examples/cert-manager/ && ./install.sh
 

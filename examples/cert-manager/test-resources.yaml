@@ -1,0 +1,29 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: le-staging-issuer
+spec:
+  acme:
+    email: me@invalid.getlocalcert.net
+    privateKeySecretRef:
+      name: cert-manager-demo-private-key
+    # Change this to Let's Encrypt production once you've validated your setup
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        acmeDNS:
+          host: https://api.getlocalcert.net/api/v1/acme-dns-compat
+          accountSecretRef:
+            name: acme-dns
+            key: acmedns.json
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cert-manager-test
+spec:
+  dnsNames:
+    - cert-manager-demo.localcert.net
+  secretName: cert-manager-test
+  issuerRef:
+    name: le-staging-issuer
