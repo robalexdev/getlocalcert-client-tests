@@ -23,7 +23,8 @@ jobs:
 
       # Install kubectl
       - run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-      - run: install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+      - run: chmod +x ./kubectl
+      - run: mv ./kubectl /usr/local/bin/kubectl
       
       # Create creds file from secrets
       - run: echo -n "${ACMEDNS_FILE}" > examples/cert-manager/acmedns.json
