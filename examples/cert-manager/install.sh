@@ -15,6 +15,12 @@ sleep 45
 
 # tell cert-manager to issue and manage a certificate
 kubectl apply -f test-resources.yaml
+sleep 10
+
+# Debug
+kubectl describe certificaterequest
+kubectl describe issuer le-staging-issuer
+kubectl describe challenge
 
 # it will take some time to issue a certificate
 for i in {0..60}
