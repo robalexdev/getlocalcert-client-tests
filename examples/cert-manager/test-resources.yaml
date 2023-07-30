@@ -24,6 +24,7 @@ metadata:
 spec:
   dnsNames:
     - cert-manager-demo.localcert.net
+    - "*.cert-manager-demo.localcert.net"
   secretName: cert-manager-test
   issuerRef:
     name: le-staging-issuer
