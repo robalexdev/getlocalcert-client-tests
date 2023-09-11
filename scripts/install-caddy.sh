@@ -3,5 +3,5 @@
 set -e
 
 go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
-xcaddy build --with github.com/caddy-dns/acmedns --with github.com/caddyserver/caddy/v2=github.com/caddyserver/caddy/v2@v2.6.4
+xcaddy build --with github.com/caddy-dns/acmedns
 
