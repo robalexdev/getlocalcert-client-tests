@@ -2,7 +2,7 @@ name: Issue cert for an existing domain
 on:
   push:
   schedule:
-    - cron: "15 6 * * *"
+    - cron: "15 6 1/7 * *"
 
 jobs:
   acmesh-issue:

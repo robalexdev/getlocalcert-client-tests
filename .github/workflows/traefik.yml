@@ -2,7 +2,7 @@ name: Register and Issue using Traefik
 on:
   push:
   schedule:
-    - cron: "40 6 * * *"
+    - cron: "40 6 1/7 * *"
 
 jobs:
   traefik-register-and-issue:
