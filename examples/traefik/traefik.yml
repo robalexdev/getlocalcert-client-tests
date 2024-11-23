@@ -8,7 +8,6 @@ certificatesResolvers:
       storage: /letsencrypt/acme.json
       dnsChallenge:
         provider: acme-dns
-        delayBeforeCheck: 0
 providers:
   docker:
     exposedByDefault: false

@@ -36,6 +36,8 @@ do
     fi
   else
     echo "Got a curl error"
+    cat output
+    echo ""
   fi
 done
 
