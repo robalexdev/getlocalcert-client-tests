@@ -23,6 +23,5 @@ echo "${ALEXSCI_JSON}" > ${ACME_DNS_STORAGE_PATH}
   --domains acme-dns-delegate-test.alexsci.com \
   --domains *.acme-dns-delegate-test.alexsci.com \
   --server https://acme-staging-v02.api.letsencrypt.org/directory \
-  --dns.disable-cp \
   run
 
